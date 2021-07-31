@@ -18,7 +18,7 @@ func New(prev Block, t1 Transaction, t2 Transaction, t3 Transaction) BlockImplSi
 	}
 }
 
-func (b BlockImplSimple) Hash() [32]byte {
+func (b BlockImplSimple) Hash() Hash {
 	var slice []byte
 	var pb Block = b.prev
 	pb_hash := pb.Hash()

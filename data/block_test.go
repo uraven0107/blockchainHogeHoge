@@ -13,7 +13,7 @@ type block_mock struct {
 
 var hogehoge_hash = sha256.Sum256([]byte("hogehoge"))
 
-func (b block_mock) Hash() [32]byte {
+func (b block_mock) Hash() Hash {
 	return hogehoge_hash
 }
 
@@ -21,13 +21,13 @@ func TestBlock_Hash(t *testing.T) {
 	const id1 = 123
 	const id2 = 456
 	const id3 = 789
-	var id_hash1 [32]byte = sha256.Sum256([]byte(strconv.Itoa(id1)))
-	var id_hash2 [32]byte = sha256.Sum256([]byte(strconv.Itoa(id2)))
-	var id_hash3 [32]byte = sha256.Sum256([]byte(strconv.Itoa(id3)))
+	var id_hash1 Hash = sha256.Sum256([]byte(strconv.Itoa(id1)))
+	var id_hash2 Hash = sha256.Sum256([]byte(strconv.Itoa(id2)))
+	var id_hash3 Hash = sha256.Sum256([]byte(strconv.Itoa(id3)))
 	tests := []struct {
 		name      string
 		transacts [3]Transaction
-		want      [32]byte
+		want      Hash
 	}{
 		{
 			"isReturnHashCaseOfOneTransaction",

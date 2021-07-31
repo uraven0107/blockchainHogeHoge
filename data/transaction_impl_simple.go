@@ -9,7 +9,7 @@ type TransactionImplSimple struct {
 	id int
 }
 
-func (t TransactionImplSimple) Hash() [32]byte {
+func (t TransactionImplSimple) Hash() Hash {
 	return sha256.Sum256([]byte(strconv.Itoa(t.id)))
 }
 

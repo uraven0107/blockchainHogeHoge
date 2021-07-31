@@ -9,7 +9,7 @@ func TestTransaction_Hash(t *testing.T) {
 	tests := []struct {
 		name string
 		tr   TransactionImplSimple
-		want [32]byte
+		want Hash
 	}{
 		{
 			"isReturnHash",
