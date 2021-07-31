@@ -8,12 +8,12 @@ import (
 func TestTransaction_Hash(t *testing.T) {
 	tests := []struct {
 		name string
-		tr   *Transaction
+		tr   TransactionImplSimple
 		want [32]byte
 	}{
 		{
 			"isReturnHash",
-			&Transaction{1111},
+			TransactionImplSimple{1111},
 			sha256.Sum256([]byte("1111")),
 		},
 	}

@@ -7,6 +7,16 @@ import (
 	"testing"
 )
 
+type block_mock struct {
+	Block
+}
+
+var hogehoge_hash = sha256.Sum256([]byte("hogehoge"))
+
+func (b block_mock) Hash() [32]byte {
+	return hogehoge_hash
+}
+
 func TestBlock_Hash(t *testing.T) {
 	const id1 = 123
 	const id2 = 456
@@ -22,23 +32,24 @@ func TestBlock_Hash(t *testing.T) {
 		{
 			"isReturnHashCaseOfOneTransaction",
 			[3]Transaction{
-				{id1},
+				TransactionImplSimple{id1},
 			},
-			sha256.Sum256((id_hash1[:])),
+			sha256.Sum256(append(hogehoge_hash[:], id_hash1[:]...)),
 		},
 		{
 			"isReturnHashCaseOfThreeTransaction",
 			[3]Transaction{
-				{id1},
-				{id2},
-				{id3},
+				TransactionImplSimple{id1},
+				TransactionImplSimple{id2},
+				TransactionImplSimple{id3},
 			},
-			sha256.Sum256((append(append(id_hash1[:], id_hash2[:]...), id_hash3[:]...))),
+			sha256.Sum256((append(append(append(hogehoge_hash[:], id_hash1[:]...), id_hash2[:]...), id_hash3[:]...))),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			b := New(&tt.transacts[0], &tt.transacts[1], &tt.transacts[2])
+			prev := new(block_mock)
+			b := New(prev, tt.transacts[0], tt.transacts[1], tt.transacts[2])
 			if got := b.Hash(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Block.Hash() = %v, want %v", got, tt.want)
 			}
