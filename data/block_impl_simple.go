@@ -10,7 +10,7 @@ type BlockImplSimple struct {
 	transactions [transacts_size]Hashable
 }
 
-func New(prev Block, t1 Transaction, t2 Transaction, t3 Transaction) BlockImplSimple {
+func NewBlock(prev Block, t1 Transaction, t2 Transaction, t3 Transaction) Block {
 	return BlockImplSimple{
 		1,
 		prev,

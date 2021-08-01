@@ -49,7 +49,7 @@ func TestBlock_Hash(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			prev := new(block_mock)
-			b := New(prev, tt.transacts[0], tt.transacts[1], tt.transacts[2])
+			b := NewBlock(prev, tt.transacts[0], tt.transacts[1], tt.transacts[2])
 			if got := b.Hash(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Block.Hash() = %v, want %v", got, tt.want)
 			}
